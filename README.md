@@ -5,9 +5,6 @@ Simple interface to any display and keypad
 
 Supports simple fixed point integer values
 
-### Overview
-
-
 ### Background
 Many projects require some form of user interface which provides a means of viewing status information and adjusting settings.
 
