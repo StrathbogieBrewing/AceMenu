@@ -1,6 +1,6 @@
 #include "AceMenu.h"
+#include "Terminal.h"
 #include "Buttons.h"
-#include "QuadAlpha.h"
 
 #define kTemperatureDelta 50
 
@@ -30,10 +30,10 @@ menuItem menuItems[] = {
 };
 #define kMenuCount (sizeof(menuItems) / sizeof(menuItem))
 
-Buttons buttons(8, 9, 10);
-QuadAlpha display;
+Terminal terminal(Serial, 9600);
+Buttons buttons(2,3,4);
 
-AceMenu menu = AceMenu(menuItems, kMenuCount, display, buttons);
+AceMenu menu = AceMenu(menuItems, kMenuCount, terminal, buttons);
 
 void setup() {
   // initialise the menu
@@ -62,7 +62,7 @@ void loop() {
     temperature += temperatureDelta;
     if (temperature > 1250)
       temperatureDelta = -kTemperatureDelta;
-    if (temperature < -200)
+    if (temperature < -150)
       temperatureDelta = kTemperatureDelta;
   }
 }

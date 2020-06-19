@@ -8,10 +8,12 @@ public:
 
   // keys used in navigation of menu system
   static const char NOKEY;
-  static const char LEFTKEY;
-  static const char RIGHTKEY;
-  static const char SELECTKEY;
-  static const char EDITKEY;
+  static const char DECKEYSHORT;
+  static const char DECKEYLONG;
+  static const char INCKEYSHORT;
+  static const char INCKEYLONG;
+  static const char SELKEYSHORT;
+  static const char SELKEYLONG;
 };
 
 #endif /* KEYPAD_H */

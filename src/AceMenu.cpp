@@ -1,5 +1,7 @@
 #include "AceMenu.h"
 
+#define kFastStep 5
+
 // menu states
 enum { kInitialise, kShowLabel, kShowValue, kShowSetting };
 
@@ -23,7 +25,7 @@ void AceMenu::update() {
       displayChanged = true;
     }
     value = newValue;
-    if ((keyIn == keypad.EDITKEY) && menuItems[index].setValue) {
+    if ((keyIn == keypad.SELKEYLONG) && menuItems[index].setValue) {
       status = kShowSetting;
       displayChanged = true;
       if (value > menuItems[index].maxValue) {
@@ -37,47 +39,66 @@ void AceMenu::update() {
       displayChanged = true;
     }
   } else if (status == kShowSetting) {
-    if ((keyIn == keypad.SELECTKEY) || (keyIn == keypad.EDITKEY)) {
+    if ((keyIn == keypad.SELKEYSHORT) || (keyIn == keypad.SELKEYLONG)) {
       menuItems[index].setValue(value);
       status = kShowValue;
       displayChanged = true;
     }
-    if (keyIn == keypad.LEFTKEY) {
+    
+    if (keyIn == keypad.DECKEYSHORT) {
       if (value > menuItems[index].minValue) {
         value--;
-      } else {
-        value = menuItems[index].minValue;
       }
       displayChanged = true;
     }
-    if (keyIn == keypad.RIGHTKEY) {
+    if (keyIn == keypad.DECKEYLONG) {
+      if (value > menuItems[index].minValue + kFastStep) {
+        value -= kFastStep;
+      }
+      displayChanged = true;
+    }
+
+    if (keyIn == keypad.INCKEYSHORT) {
       if (value < menuItems[index].maxValue) {
         value++;
-      } else {
-        value = menuItems[index].maxValue;
       }
       displayChanged = true;
     }
+    if (keyIn == keypad.INCKEYLONG) {
+      if (value < menuItems[index].maxValue - kFastStep) {
+        value += kFastStep;
+      }
+      displayChanged = true;
+    }
+
+    // range check
+    if (value > menuItems[index].maxValue) {
+      value = menuItems[index].maxValue;
+    }
+    if (value < menuItems[index].minValue) {
+      value = menuItems[index].minValue;
+    }
+
   } else {
     if ((status != kShowLabel) || (keyIn != keypad.NOKEY)) {
       displayChanged = true;
     }
     status = kShowLabel;
-    if (keyIn == keypad.RIGHTKEY) {
+    if (keyIn == keypad.INCKEYSHORT) {
       if (index < count - 1) {
         index++;
       } else {
         index = 0;
       }
     }
-    if (keyIn == keypad.LEFTKEY) {
+    if (keyIn == keypad.DECKEYSHORT) {
       if (index > 0) {
         index--;
       } else {
         index = count - 1;
       }
     }
-    if ((keyIn == keypad.SELECTKEY) || (keyIn == keypad.EDITKEY)) {
+    if ((keyIn == keypad.SELKEYSHORT) || (keyIn == keypad.SELKEYLONG)) {
       status = kShowValue;
       value = menuItems[index].getValue();
       displayChanged = true;

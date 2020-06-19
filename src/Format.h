@@ -14,6 +14,8 @@ public:
   static void centi(Display &disp, int val);
   static void twoDigit(Display &disp, int val);
 
+  static void deciTemp(Display &disp, int val);
+
 private:
   static void write(Display &disp, int val, int format);
 };

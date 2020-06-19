@@ -12,8 +12,8 @@ public:
 
 private:
   uint8_t pins[3];
-  bool state[3];
-  uint32_t debounceTime[3];
+  uint32_t lastReadTime;
+  int16_t debounceTimer[3];
 };
 
 #endif

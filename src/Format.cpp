@@ -96,6 +96,15 @@ void Format::boolean(Display &disp, int val) {
 
 void Format::unit(Display &disp, int val) { write(disp, val, Unit); }
 
+void Format::deciTemp(Display &disp, int val) {
+  if ((val < 999) && (val > -99)) {
+    write(disp, val, Deci);
+  } else {
+    write(disp, val /10, Unit);
+  }
+  disp.write('~');
+}
+
 void Format::deci(Display &disp, int val) { write(disp, val, Deci); }
 
 void Format::centi(Display &disp, int val) { write(disp, val, Centi); }
