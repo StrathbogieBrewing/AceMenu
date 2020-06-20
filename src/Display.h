@@ -11,12 +11,10 @@ public:
     }
   }
 
-  static const char ESC;
-  static const char CRLF[];
-  static const char HOME[];
-  static const char CLRSCR[];
-  static const char FLASHON[];
-  static const char RESET[];
+  static const char NEWLINE;
+  static const char CLRSCR;
+  static const char FLASHON;
+  static const char FLASHOFF;
 };
 
 #endif /* DISPLAY_H */

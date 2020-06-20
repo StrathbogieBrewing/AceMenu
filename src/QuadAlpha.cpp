@@ -12,13 +12,8 @@
 
 #define I2C_ADDR (0x70)
 
-enum { kGroundState, kEscapeReceived, kBracketReceived, kDigitReceived };
-
 void QuadAlpha::begin() {
-  state = kGroundState;
   displayIndex = 0;
-  flash = false;
-
   Wire.begin();
   Wire.beginTransmission(I2C_ADDR);
   Wire.write(HT16K33_OSC_ON);
@@ -60,68 +55,28 @@ void QuadAlpha::writeDisplay() {
 }
 
 void QuadAlpha::write(char data) {
-  if (state == kEscapeReceived) {
-    if (data == '[') {
-      state = kBracketReceived;
+  if (data == CLRSCR) {
+    clearDisplay();
+  } else if (data == FLASHON) {
+    setBlinkRate(HT16K33_BLINK_2HZ);
+  } else if (data == FLASHOFF) {
+    setBlinkRate(HT16K33_BLINK_OFF);
+  } else if (data == NEWLINE) {
+    writeDisplay();
+  } else if (isprint(data)) {
+    // check for decimal point
+    uint16_t displayMask = 0;
+    if (data == '.') {
+      if (displayIndex != 0)
+        displayIndex--;
+      displayMask = displayBuffer[displayIndex] | (1 << 14);
     } else {
-      state = kGroundState;
+      displayMask = pgm_read_word(fontTable + data);
     }
-  } else if (state == kBracketReceived) {
-    if (isdigit(data)) {
-      digit = data;
-      state = kDigitReceived;
-    } else if (isalpha(data)) {
-      if (data == 'H') {
-        // move to home position
-        displayIndex = 0;
-        state = kGroundState;
-      }
-    } else {
-      state = kGroundState;
-    }
-  } else if (state == kDigitReceived) {
-    if (isalpha(data)) {
-      if ((data == 'J') && (digit == '2')) {
-        // clear the display buffer
-        clearDisplay();
-      }
-      if ((data == 'm') && (digit == '0'))
-        // normal display mode
-        flash = false;
-      if ((data == 'm') && (digit == '5'))
-      // enable flashing display
-        flash = true;
-      state = kGroundState;
-    }
-  } else {
-    if (data == ESC) {
-      state = kEscapeReceived;
-      // digit = 0;
-    } else {
-      // process non-escaped characters
-      if (data == '\n') {
-        // update display
-        if (flash)
-          setBlinkRate(HT16K33_BLINK_2HZ);
-        else
-          setBlinkRate(HT16K33_BLINK_OFF);
-        writeDisplay();
-      } else if (isprint(data)) {
-        // check for decimal point
-        uint16_t displayMask = 0;
-        if (data == '.') {
-          if (displayIndex != 0)
-            displayIndex--;
-          displayMask = displayBuffer[displayIndex] | (1 << 14);
-        } else {
-          displayMask = pgm_read_word(fontTable + data);
-        }
-        // update buffer
-        displayBuffer[displayIndex] = displayMask;
-        if (++displayIndex > 3)
-          displayIndex = 0;
-      }
-    }
+    // update buffer
+    displayBuffer[displayIndex] = displayMask;
+    if (++displayIndex > 3)
+      displayIndex = 0;
   }
 }
 

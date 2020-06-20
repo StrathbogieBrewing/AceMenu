@@ -19,9 +19,7 @@ private:
   void clearDisplay();
   uint16_t displayBuffer[quad_kBufferSize];
   uint8_t displayIndex;
-  uint8_t state;
   uint8_t digit;
-  uint8_t flash;
   static const uint16_t fontTable[] PROGMEM;
 };
 

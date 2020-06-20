@@ -1,9 +1,7 @@
-// ANSI / VT100 escape codes
+// misappropriated ASCII control codes used to control display
 #include "Display.h"
 
-const char Display::ESC = '\x1b';
-const char Display::CRLF[] = "\r\n";
-const char Display::HOME[] = "\x1b[H";
-const char Display::CLRSCR[] = "\x1b[2J";
-const char Display::FLASHON[] = "\x1b[5m";
-const char Display::RESET[] = "\x1b[0m";
+const char Display::NEWLINE = '/n';
+const char Display::CLRSCR = '/b';
+const char Display::FLASHON = '/a';
+const char Display::FLASHOFF = '/e';

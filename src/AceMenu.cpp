@@ -44,7 +44,7 @@ void AceMenu::update() {
       status = kShowValue;
       displayChanged = true;
     }
-    
+
     if (keyIn == keypad.DECKEYSHORT) {
       if (value > menuItems[index].minValue) {
         value--;
@@ -108,14 +108,13 @@ void AceMenu::update() {
   // update display
   if (displayChanged) {
     display.write(display.CLRSCR);
-    display.write(display.HOME);
-    display.write(display.RESET);
+    display.write(display.FLASHOFF);
     if (status == kShowSetting)
       display.write(display.FLASHON);
     if (status == kShowLabel)
       display.write(menuItems[index].itemName);
     else
       menuItems[index].format(display, value);
-    display.write(display.CRLF);
+    display.write(display.NEWLINE);
   }
 }
