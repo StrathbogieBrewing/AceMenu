@@ -20,12 +20,12 @@ AceMenu uses functions to get, set and format the data. Constant values are used
 ### Hardware
 The menu requires a keypad for user input and a display to show the information.
 
-* Displays can have various characteristics:
+Displays can have various characteristics:
 * Number of lines can be single or multiple
 * Number of characters on a line
-* Format of characters can be 7 segment, alphanumeric or dot matrix
-* Electrical interface can be serial, I2C, SPI
+* The format of characters can be 7 segment, alphanumeric, dot matrix etc
+* Electrical interfaces can be serial, I2C, SPI etc
 
-Similarly keypads can have from a few buttons to a full keyboard with a variety of electrical interfaces. The AceMenu requires 3 buttons and needs to be able to determine a long press from a short press of each button. A long press of the select button is required to adjust a setting which provides some protection against accidental modification.
+Similarly keypads can have from a few buttons to a full keyboard with a variety of electrical interfaces. The AceMenu requires 3 buttons and needs to be able to differentiate a long press from a short press of each button. A long press of the select button is required to adjust a setting which provides some protection against accidental modification. On a standard PC keyboard a long press is acheived by using the shift key as normally a long press causes the key to auto repeat.
 
 The AceMenu reads characters from the keypad and writes characters to the display. ASCII control codes have been appropriated to clear the display and make characters flash. Characters expected from the keypad are 'd', 'i' and 's' for short presses and 'D', 'I' and 'S' for long presses of decrement, increment and select.
