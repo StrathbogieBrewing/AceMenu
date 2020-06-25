@@ -18,8 +18,8 @@ void Format::write(Display &disp, int val, int format) {
     val = -val;
     disp.write('-');
   } else {
-    if ((format == Unit) || (format == Deci) || (format == Centi))
-      disp.write(' ');
+    // if ((format == Unit) || (format == Deci) || (format == Centi))
+    //   disp.write(' ');
   }
   // do 10000's
   digit = '0';
@@ -98,10 +98,11 @@ void Format::unit(Display &disp, int val) { write(disp, val, Unit); }
 
 void Format::deciTemp(Display &disp, int val) {
   if ((val < 999) && (val > -99)) {
+    if ((val < 100) && (val >= 0))
+      disp.write(' ');
     write(disp, val, Deci);
-  } else {
-    write(disp, val /10, Unit);
-  }
+  } else
+    write(disp, val / 10, Unit);
   disp.write('~');
 }
 

@@ -57,6 +57,7 @@ void QuadAlpha::writeDisplay() {
 void QuadAlpha::write(char data) {
   if (data == CLRSCR) {
     clearDisplay();
+    displayIndex = 0;
   } else if (data == FLASHON) {
     setBlinkRate(HT16K33_BLINK_2HZ);
   } else if (data == FLASHOFF) {
@@ -186,6 +187,6 @@ static const uint16_t QuadAlpha::fontTable[] PROGMEM = {
     0b0000100101001001, // {
     0b0001001000000000, // |
     0b0010010010001001, // }
-    0b0000010100100000, // ~
+    0b0000000011100001, // ~
     0b0011111111111111,
 };
