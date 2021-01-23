@@ -1,6 +1,6 @@
 #include "AceMenu.h"
 
-#define kFastStep 5
+#define kFastStep 10
 
 // menu states
 enum { kInitialise, kShowLabel, kShowValue, kShowSetting };
