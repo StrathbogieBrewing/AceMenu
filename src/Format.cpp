@@ -4,10 +4,10 @@ enum {
   // Milli,       // make fixed point with 3 decimal places
   Centi,     // make fixed point with 2 decimal places
   Deci,      // make fixed point with 1 decimal places
-  Unit,      // dispplay at least one digit
-  TwoDigits, // dispplay at least two digit
-  Time,      // dispplay as a time
-  Bool,      // dispplay as on / off
+  Unit,      // display at least one digit
+  TwoDigits, // display at least two digit
+  Time,      // display as a time
+  Bool,      // display as on / off
 };
 
 void Format::write(Display &disp, int val, int format) {
