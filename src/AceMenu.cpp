@@ -108,9 +108,13 @@ void AceMenu::update() {
   // update display
   if (displayChanged) {
     display.write(display.CLRSCR);
-    display.write(display.FLASHOFF);
+    
+    // display.write(display.FLASHOFF);
     if (status == kShowSetting)
       display.write(display.FLASHON);
+    else
+      display.write(display.FLASHOFF);
+
     if (status == kShowLabel)
       display.write(menuItems[index].itemName);
     else
