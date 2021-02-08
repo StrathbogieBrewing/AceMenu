@@ -1,5 +1,12 @@
 # AceMenu
 ## Arduino Super Simple Menu
+
+### Installation
+
+Place in Arduino libraries directory or use symbolic link from location of git repository
+
+ln -s ~/git/AceMenu libraries/AceMenu
+
 ### Features
 Simple interface to any display and keypad
 
