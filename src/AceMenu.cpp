@@ -15,7 +15,7 @@ void AceMenu::begin() {
   update();
 }
 
-void AceMenu::update() {
+bool AceMenu::update() {
   char keyIn = keypad.read();
   bool displayChanged = false;
   // if key pressed update state and menu value
@@ -108,7 +108,7 @@ void AceMenu::update() {
   // update display
   if (displayChanged) {
     display.write(display.CLRSCR);
-    
+
     // display.write(display.FLASHOFF);
     if (status == kShowSetting)
       display.write(display.FLASHON);
@@ -121,4 +121,6 @@ void AceMenu::update() {
       menuItems[index].format(display, value);
     display.write(display.NEWLINE);
   }
+
+  return (keyIn != keypad.NOKEY);
 }

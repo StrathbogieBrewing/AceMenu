@@ -23,7 +23,7 @@ class AceMenu {
 public:
   AceMenu(menuItem items[], int itemCount, Display &dis, Keypad &key);
   void begin();
-  void update();
+  bool update();
 
 private:
   menuItem *menuItems;
